@@ -22,6 +22,8 @@ thêm, tim + số like, follow, bookmark, đánh dấu đã xem; badge số lư�
 | UX-TGL-006 | MUST | Thao tác cần đăng nhập/điều kiện (guest, offline) → giải thích và giữ trạng thái cũ, không bật rồi tắt. | |
 | UX-TGL-007 | SHOULD | Định dạng số lớn theo locale (1.2K, 1,2 N); animation đổi số không làm đổi chiều rộng gây layout shift (dùng `tabular` figures hoặc min width). | UX-TR-002. |
 | UX-TGL-008 | SHOULD | Feedback nhẹ (icon đổi, haptic, toast "Đã thêm vào danh sách" có Undo nếu xoá). | UX-A1-001. |
+| UX-TGL-010 | MUST | Một trạng thái chỉ có **một** nguồn quyết định. Có cả bản server và bản local thì phải có đồng bộ rõ ràng (đọc server khi mở app/đăng nhập, merge vào local) hoặc quyết định ghi lại là local-only — không để màn này đọc cờ server, màn kia đọc DB local. API danh sách khai báo mà không ai gọi là dấu hiệu. | Ba màn hiển thị ba trạng thái khác nhau cho cùng một phim. |
+| UX-TGL-011 | MUST | Trạng thái override cục bộ của một màn (map "đã lưu" riêng của feed) bị xoá/cập nhật khi nguồn chung đổi; tốt nhất là không có override, chỉ dẫn xuất từ nguồn chung. | Bỏ lưu ở Detail, quay lại feed vẫn sáng. |
 | UX-TGL-009 | FORBIDDEN | ViewModel gọi `repository.add(id)` rồi **không** cập nhật state và không quan sát lại; hoặc reload toàn bộ màn để lấy số mới. | Nguyên nhân gốc của "bấm mà số không đổi" / nháy toàn màn. |
 
 ## Reference implementation

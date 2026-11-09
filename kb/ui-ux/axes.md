@@ -75,7 +75,7 @@ Mỗi trục là một **loại** lỗi. Với mỗi component trên màn, đi q
 
 | ID | Mức | Bất biến |
 |---|---|---|
-| UX-PF-001 | MUST | Lazy list có `key` ổn định và `contentType`; không tạo lại object nặng (player, bitmap) mỗi recomposition. |
+| UX-PF-001 | MUST | Lazy list có `key` ổn định và `contentType` (chi tiết UX-LST-001); không tạo lại object nặng (player, bitmap) mỗi recomposition. |
 | UX-PF-002 | SHOULD | Ảnh tải đúng kích thước hiển thị; không decode ảnh gốc cho thumbnail. |
 | UX-PF-003 | SHOULD | Không jank khi cuộn (đo bằng JankStats/Macrobenchmark khi nghi ngờ). |
 
