@@ -25,6 +25,7 @@ priority: P0
 2. `docs/design-guidelines.md`
 3. `docs/ui-catalog/` cho component pattern
 4. `presenter/theme/*` cho token available
+5. `kb/ui-ux/README.md` → file archetype của component đang làm (tabs-pager, carousel-banner, video-player-feed, search-text-input, toggle-counter-actions...): làm đúng mục **Contract**, dùng **Reference implementation**, thêm test theo mục **Verify**
 
 ## Execution procedure
 

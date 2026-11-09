@@ -100,6 +100,10 @@ python3 ~/.claude/skills/ui-diff-review/scripts/verdict.py --score <n> --thresho
 - `android` CLI thiếu -> cài theo `testing-preview/references/android-reference.md`. Module preview không list ra FQN (Compose Multiplatform dùng annotation JetBrains) -> theo mục "Multiplatform preview annotation" trong file đó.
 - Preview **không** chứng nhận hành vi runtime (animation, ad, navigation, device). Lệch chỉ có ở runtime -> ghi "không kiểm bằng preview", chuyển Artemis nếu user muốn; không coi là PASS cho toàn bộ màn.
 
+## Sau khi PASS điểm Figma
+
+Điểm Figma chỉ chứng minh khung hình tĩnh. Với mỗi màn đã PASS, chạy `kb/ui-ux/runbooks/screen-audit.md` (ít nhất Bước 1–3 + `kb/ui-ux/scripts/ui-ux-scan.sh` trên feature đó); finding `UX-*` đưa vào báo cáo cuối, rule cần runtime ghi `UNVERIFIED`.
+
 ## Báo cáo cuối
 
 Bảng `bug | màn | baseline | v1 | v2 | v3 | trạng thái (PASS/STUCK/needs-decision)`, danh sách file đã sửa, asset đã tải/thêm, link `figma-refs.json`, finding còn lại kèm lý do. Kết thúc bằng `Status:` và câu hỏi còn mở.

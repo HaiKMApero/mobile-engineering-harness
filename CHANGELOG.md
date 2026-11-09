@@ -6,6 +6,13 @@ Format tuân theo [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) và s
 
 ## [Unreleased]
 
+### Added — UI/UX behaviour KB
+
+- **`kb/ui-ux/`**: KB lỗi hành vi UI/UX cho Compose, viết chủ động theo ma trận **archetype × axis** thay vì theo từng issue. 9 trục lỗi (`axes.md`: state, transition, layout/IME, interaction, lifecycle, async, a11y, perf, monetization) và 11 archetype (tabs-pager, carousel-banner endless, lazy-list, video-player-feed, search-text-input, toggle-counter-actions, async-action-cta, sheets-dialogs-overlays, image-media-loading, navigation-back, timers-countdown, ad-slots). Mỗi archetype có Contract (rule `UX-*` MUST/SHOULD/FORBIDDEN), reference implementation, edge-case matrix, Detect, Verify.
+- Runbook `screen-audit.md` (audit chủ động 1 màn/app, PASS/FAIL/N/A/UNVERIFIED) và `runtime-verification.md` (Compose UI test, uiautomator bounds cho IME, screenrecord + ffmpeg phát hiện nháy, kịch bản lifecycle).
+- Script `kb/ui-ux/scripts/ui-ux-scan.sh <src>`: quét tĩnh, xuất TSV nghi vấn theo rule id (key lazy list, carousel không vòng, selector không có pager, imePadding toàn màn, cover ẩn theo isPlaying, cờ first-frame không theo media, collectAsState, vòng lặp UI không theo lifecycle, popup tự bật, navigate/launch trong onClick, bottom nav không restoreState, ảnh không cố định khung, input + ad cùng feature).
+- `coding-compose`, `coding-review`, `testing-android`, `testing-preview`, `ui-fix-loop` trỏ tới KB; `ui-fix-loop` thêm bước audit hành vi sau khi PASS điểm Figma.
+
 ### Added — Batch bugfix orchestrator
 
 - **`bug-fix-orchestrator`**: leader điều phối batch bug từ Jira (JQL, board, sprint, danh sách key). Lấy spec Confluence, Figma node và docs tham chiếu của repo một lần; scout codebase một lần và lưu cache dùng lại giữa các batch; phân loại `kind` (code/ui/content/spec-gap/needs-info/…) và mức verify (`none`/`unit`/`preview`/`device`); gom group theo root cause, xếp lane worktree song song (mỗi lane 1 PR gom nhiều bug); bug cần thiết bị vào hàng chờ, chỉ chạy khi thiết bị rảnh. State `plans/bugfix-batch-<id>/` qua `scripts/bfo_state.py` (kiểm plan cơ học, giới hạn số lane, hàng chờ thiết bị), resume được.

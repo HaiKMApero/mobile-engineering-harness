@@ -73,6 +73,8 @@ A failed required screenshot test overrides the runner's PASS_PREVIEW: report FA
 
 Hand navigation, IME, lifecycle, permission, R8, performance and SDK-host integration to the project's Maestro/Artemis/device pipeline. Preview PASS is not E2E PASS. Do not publish/release as part of this skill.
 
+The UI/UX behaviour KB lists which rules a preview can never prove (axes AX-TRANS, AX-INTERACT, AX-LIFE, IME in AX-LAYOUT, AX-MONET): report them as `UNVERIFIED` and hand them off with `kb/ui-ux/runbooks/runtime-verification.md`.
+
 ## Report
 
 Return feature, revision, case count and `PASS_PREVIEW`, `FAIL_PREVIEW`, `NEEDS_REVIEW` or `BLOCKED`. Link report and representative evidence where supported. State untested scope, missing design/baseline, environment limitations, screenshot-test outcome and next action. Never claim the entire feature/app is verified from previews alone.
