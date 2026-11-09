@@ -314,6 +314,7 @@ mobile-engineering-harness/
 │
 ├── constitution/                    ← Layer 1: luật
 ├── knowledge/                       ← Layer 2: kiến thức
+├── kb/ui-ux/                        ← KB hành vi UI/UX Compose (archetype × axis, scan script)
 ├── skills/                          ← Layer 3: procedures
 ├── workflows/                       ← Layer 4: orchestration
 ├── agents/                          ← Layer 4: role prompts

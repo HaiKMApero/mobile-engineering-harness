@@ -23,6 +23,7 @@ priority: P0
 1. `knowledge/coding/coroutines/essentials.md [KB → develop/kotlin-coroutine, kb_search "coroutines essentials"] §Testing with runTest`
 2. `knowledge/coding/mvi/essentials.md [KB → develop/structure-code, kb_search "mvi essentials"] §Testing MVI`
 3. Project `docs/architecture.md`
+4. UI behaviour (tab ↔ pager, carousel vòng, tap đúp, IME, nháy, back/rotate): mục **Verify** của archetype trong `kb/ui-ux/archetypes/` và `kb/ui-ux/runbooks/runtime-verification.md`
 
 ## Test strategy
 

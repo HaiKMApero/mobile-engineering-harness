@@ -24,6 +24,7 @@ priority: P0
 2. `constitution/concurrency-rules.md [KB → develop/constitution, kb_search "concurrency rules"]` — CORO-001..010
 3. `constitution/engineering-principles.md [KB → develop/constitution, kb_search "engineering principles"]`
 4. Project `CLAUDE.md`
+5. Diff có Composable/UiState: `kb/ui-ux/axes.md` + file archetype của component bị sửa (`kb/ui-ux/archetypes/`). Finding UI/UX dẫn rule id `UX-*`; rule cần runtime mà chưa có bằng chứng ghi `UNVERIFIED`, không PASS. Có thể chạy `kb/ui-ux/scripts/ui-ux-scan.sh <src>` để lấy nghi vấn.
 
 ## Execution procedure
 
