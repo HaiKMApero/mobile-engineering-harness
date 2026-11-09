@@ -57,13 +57,14 @@ while IFS= read -r f; do
   fi
 
   # UX-LST-010: forEach rendering inside a vertically scrolling Column.
+  # Only collections that look data-driven; small fixed sets (tags, tracks) are fine.
   if has 'verticalScroll\(' "$f" && has '\.forEach *\{' "$f"; then
-    grep -n -E '\.forEach *\{' "$f" | head -3 | while IFS=: read -r n _; do
+    grep -n -i -E '(items|list|dramas|episodes|results|posters|series|movies|videos|feed)[A-Za-z]*\.forEach *\{' "$f" | head -3 | while IFS=: read -r n _; do
       emit UX-LST-010 "$f:$n" "forEach inside verticalScroll Column: use LazyColumn for unbounded lists"; done
   fi
 
   # UX-CAR-001/003: carousel-like pager without a virtual looping page count.
-  if has 'HorizontalPager\(' "$f" && { echo "$base" | grep -qiE 'banner|hero|carousel|recommend|slide' || hasi 'banner|hero|carousel'  "$f"; }; then
+  if has 'HorizontalPager\(' "$f" && { echo "$base" | grep -qiE 'banner|hero|carousel|recommend|slide' || hasi 'banner|hero|carousel'  "$f"; } && ! echo "$base" | grep -qiE 'ranking|podium|top3|onboard'; then
     if ! has 'Int\.MAX_VALUE|[0-9]_?000_?000|[0-9]{2,3}_000|[Ll]oop' "$f"; then
       n="$(grep -n -m1 'HorizontalPager(' "$f" | cut -d: -f1)"
       emit UX-CAR-001 "$f:$n" "carousel pager is finite: no virtual page count / page % size (endless swipe + indicator)"
@@ -92,6 +93,8 @@ while IFS= read -r f; do
     grep -n -i -E '(thumbnail|cover|poster).*(isPlaying|isPrepared|STATE_READY|isReady|onPrepared)|(isPlaying|isPrepared|STATE_READY|isReady|onPrepared).*(thumbnail|cover|poster)' "$f" |
       while IFS=: read -r n _; do emit UX-VID-001 "$f:$n" "cover hidden on playing/prepared state: hide only after first frame rendered for this media id"; done
     # UX-VID-002: first-frame flag not keyed by media.
+    # skipped when the flag is combined with a media/episode id at its use site
+    grep -q -i -E '(firstFrame|rendered)[A-Za-z]* *&&[^&]*(Id|id) *==|(Id|id) *==.*(firstFrame|rendered)|takeIf *\{ *(firstFrame|rendered)' "$f" ||
     grep -n -i -E 'firstFrame|rendered' "$f" | grep -E 'remember\((player|engine)?\)|remember *\{ *mutableStateOf\((false|true)\)' |
       while IFS=: read -r n _; do emit UX-VID-002 "$f:$n" "first-frame flag keyed by player, not by media id: reset on every source change"; done
   fi
@@ -132,7 +135,7 @@ while IFS= read -r f; do
 
   # UX-IMG-001: network image whose modifier sets no size/ratio (skips pass-through modifier params).
   grep -n -E '(Async|SubcomposeAsync)Image\(' "$f" | while IFS=: read -r n _; do
-    ctx="$(sed -n "${n},$((n+7))p" "$f")"
+    ctx="$(sed -n "${n},$((n+14))p" "$f")"  # long arg lists put modifier after imageLoader/contentScale
     if echo "$ctx" | grep -q 'modifier' && ! echo "$ctx" | grep -qE 'size\(|aspectRatio|height\(|width\(|fillMax|matchParentSize|modifier *= *modifier'; then
       emit UX-IMG-001 "$f:$n" "AsyncImage without fixed size/aspectRatio: layout shifts when the image arrives"
     fi
@@ -143,6 +146,8 @@ done <<< "$FILES"
 echo "$FILES" | while IFS= read -r f; do feature_dir "$f"; done | sort -u | while IFS= read -r fd; do
   if grep -rqE 'TextField\(|BasicTextField\(' "$fd" --include='*.kt' 2>/dev/null &&
      grep -rqiE 'BannerAd|AdView|bannerAd|NativeAd|AdSlot|Banner(Ad)?Container' "$fd" --include='*.kt' 2>/dev/null; then
-    emit UX-AD-003 "$fd" "text input and ad slot in the same feature: verify on device that the keyboard does not move the ad"
+    loc="$(grep -rnE -m1 'imePadding\(\)' "$fd" --include='*.kt' 2>/dev/null | head -1 | cut -d: -f1,2)"
+    [ -n "$loc" ] || loc="$(grep -rniE -m1 'BannerAd|AdView|bannerAd|NativeAd|AdSlot' "$fd" --include='*.kt' 2>/dev/null | head -1 | cut -d: -f1,2)"
+    emit UX-AD-003 "${loc:-$fd}" "text input and ad slot in the same feature: verify on device that the keyboard does not move the ad"
   fi
 done

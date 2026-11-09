@@ -12,6 +12,7 @@ Format tuân theo [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) và s
 - Runbook `screen-audit.md` (audit chủ động 1 màn/app, PASS/FAIL/N/A/UNVERIFIED) và `runtime-verification.md` (Compose UI test, uiautomator bounds cho IME, screenrecord + ffmpeg phát hiện nháy, kịch bản lifecycle).
 - Script `kb/ui-ux/scripts/ui-ux-scan.sh <src>`: quét tĩnh, xuất TSV nghi vấn theo rule id (key lazy list, carousel không vòng, selector không có pager, imePadding toàn màn, cover ẩn theo isPlaying, cờ first-frame không theo media, collectAsState, vòng lặp UI không theo lifecycle, popup tự bật, navigate/launch trong onClick, bottom nav không restoreState, ảnh không cố định khung, input + ad cùng feature).
 - Skill **`ui-ux-audit`**: gọi được bằng `/ui-ux-audit`, chạy quy trình `screen-audit.md` (inventory → scan → contract walk → runtime tuỳ chọn → báo cáo finding `UX-*`), read-only mặc định.
+- KB bổ sung từ lần chạy thử trên app thật: `UX-LST-011` (vị trí cuộn ban đầu), `UX-TMR-008` (chuyển ngày khi app đang mở), `UX-TGL-010/011` (một nguồn sự thật local/server, override cục bộ), `UX-AD-009` (full-screen ad sau khi host đã đóng); verdict `DRIFT`; lane dữ liệu xuyên màn khi audit song song. `ui-ux-scan.sh` giảm false positive (AsyncImage, forEach giới hạn, first-frame có so media id, ranking hữu hạn) và neo `UX-AD-003` về file:line.
 - `coding-compose`, `coding-review`, `testing-android`, `testing-preview`, `ui-fix-loop` trỏ tới KB; `ui-fix-loop` thêm bước audit hành vi sau khi PASS điểm Figma.
 
 ### Added — Batch bugfix orchestrator

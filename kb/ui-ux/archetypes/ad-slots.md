@@ -21,6 +21,7 @@ reward ad để mở khoá.
 | UX-AD-005 | MUST | Native ad trong list: là item có `key` và `contentType` riêng, vị trí cố định theo index logic; không reload mỗi lần cuộn qua. | UX-PF-001. |
 | UX-AD-006 | MUST | Full-screen ad: pause media/timer, chặn input phía dưới; đóng/fail → tiếp tục luồng đã định (điều hướng vẫn diễn ra). Không chặn user nếu ad không tải được trong timeout. | UX-MO-003. |
 | UX-AD-007 | SHOULD | Ad slot tôn trọng insets (gesture nav) và dark mode của native template. | |
+| UX-AD-009 | MUST | Full-screen ad gắn với một màn/sheet chỉ được `show()` khi host còn hiển thị; job tải/hiện ad bị huỷ khi user đóng host (không chạy trên scope sống lâu hơn host). | Ad bật lên sau khi user đã đóng popup unlock. |
 | UX-AD-008 | FORBIDDEN | Đặt banner trong `Scaffold` content cùng `Column` với nội dung có `imePadding` lên root; dùng `wrapContentHeight` cho slot ad. | |
 
 ## Edge-case matrix

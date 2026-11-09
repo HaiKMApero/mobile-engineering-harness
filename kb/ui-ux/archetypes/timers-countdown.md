@@ -20,6 +20,7 @@ khuyến mãi hết hạn.
 | UX-TMR-004 | MUST | Chống gian lận đổi giờ máy khi có thưởng: dùng `elapsedRealtime` cho khoảng ngắn, giờ server cho mốc ngày. | |
 | UX-TMR-005 | SHOULD | Text đếm ngược dùng chữ số `tabular` hoặc width cố định → không rung layout mỗi giây. | UX-TR-002. |
 | UX-TMR-006 | SHOULD | Auto-advance (tập kế tiếp) có nút huỷ và tắt khi user đang tương tác. | |
+| UX-TMR-008 | MUST | Chuyển ngày/phiên khi app **đang mở** (qua nửa đêm, quay lại từ background sang ngày mới) được đánh giá lại: có một chỗ duy nhất kiểm "hôm nay" khi app vào foreground và khi tới mốc ngày, không chỉ ở splash. | Nhiệm vụ/check-in vẫn hiện trạng thái hôm qua. |
 | UX-TMR-007 | FORBIDDEN | `while (true) { delay(1000); remaining-- }` trong Composable. | |
 
 ## Edge-case matrix
