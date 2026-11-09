@@ -50,7 +50,9 @@ done
 [ -d "$SOURCE_DIR" ] || { log "ERROR: source not found: $SOURCE_DIR"; exit 1; }
 mkdir -p "$TARGET_DIR"
 
-mapfile -t AGENTS < <(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -name "*.md" -print0 \
+# while-read instead of mapfile: macOS ships bash 3.2, which has no mapfile.
+AGENTS=()
+while IFS= read -r line; do AGENTS+=("$line"); done < <(find "$SOURCE_DIR" -mindepth 1 -maxdepth 1 -name "*.md" -print0 \
   | xargs -0 -n1 echo | sort)
 
 if [ "${#AGENTS[@]}" -eq 0 ]; then

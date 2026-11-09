@@ -51,7 +51,9 @@ done
 mkdir -p "$TARGET_DIR"
 
 # Collect skill folders (any dir containing SKILL.md)
-mapfile -t SKILLS < <(find "$SOURCE_DIR" -mindepth 2 -maxdepth 2 -name SKILL.md -print0 \
+# while-read instead of mapfile: macOS ships bash 3.2, which has no mapfile.
+SKILLS=()
+while IFS= read -r line; do SKILLS+=("$line"); done < <(find "$SOURCE_DIR" -mindepth 2 -maxdepth 2 -name SKILL.md -print0 \
   | xargs -0 -n1 dirname | sort)
 
 if [ "${#SKILLS[@]}" -eq 0 ]; then
